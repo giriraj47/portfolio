@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Code,
   Briefcase,
@@ -11,6 +11,8 @@ import {
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("about");
+  const projectsRef = useRef(null);
+  const techRef = useRef(null);
 
   const projects = [
     {
@@ -43,47 +45,61 @@ export default function Portfolio() {
     "Tools & Deployment": ["Git", "Vite", "Vercel", "npm", "VS Code"],
   };
 
+  const scrollToSection = (section) => {
+    setActiveSection(section);
+    setTimeout(() => {
+      if (section === "projects" && projectsRef.current) {
+        projectsRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      } else if (section === "tech" && techRef.current) {
+        techRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <nav className="max-w-6xl mx-auto px-6 py-4">
+        <nav className="max-w-6xl mx-auto px-4 md:px-6 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+            <h1 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
               &lt;Giriraj Joshi /&gt;
             </h1>
-            <div className="flex gap-6">
+            <div className="flex gap-2 md:gap-6">
               <button
                 onClick={() => setActiveSection("about")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                className={`flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 text-sm md:text-base rounded-lg transition-all ${
                   activeSection === "about"
                     ? "bg-blue-600 text-white"
                     : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
                 }`}
               >
-                <User size={18} />
+                <User size={16} className="md:w-[18px] md:h-[18px]" />
                 About
               </button>
               <button
-                onClick={() => setActiveSection("projects")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                onClick={() => scrollToSection("projects")}
+                className={`flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 text-sm md:text-base rounded-lg transition-all ${
                   activeSection === "projects"
                     ? "bg-blue-600 text-white"
                     : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
                 }`}
               >
-                <Briefcase size={18} />
+                <Briefcase size={16} className="md:w-[18px] md:h-[18px]" />
                 Projects
               </button>
               <button
-                onClick={() => setActiveSection("tech")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                onClick={() => scrollToSection("tech")}
+                className={`flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 text-sm md:text-base rounded-lg transition-all ${
                   activeSection === "tech"
                     ? "bg-blue-600 text-white"
                     : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
                 }`}
               >
-                <Code size={18} />
+                <Code size={16} className="md:w-[18px] md:h-[18px]" />
                 Tech Stack
               </button>
             </div>
@@ -92,23 +108,23 @@ export default function Portfolio() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-6 py-12">
+      <main className="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-12">
         {/* Hero Section */}
-        <section className="mb-16 text-center">
+        <section className="mb-12 md:mb-16 text-center">
           <div className="mb-6">
             <img
               src="avatar.jpg"
-              className="object-cover w-32 h-32 mx-auto bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-4xl font-bold text-white mb-4 shadow-lg"
+              className="object-cover w-24 h-24 md:w-32 md:h-32 mx-auto bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-2xl md:text-4xl font-bold text-white mb-4 shadow-lg"
             ></img>
           </div>
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
             Frontend Developer
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Crafting beautiful, responsive, and user-friendly web experiences
             with modern technologies
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {/* <a
               href="mailto:levilightsg@gmail.com"
               className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-md"
@@ -139,8 +155,8 @@ export default function Portfolio() {
 
         {/* About Section */}
         {activeSection === "about" && (
-          <section className="bg-white rounded-2xl p-8 border border-gray-200 shadow-lg">
-            <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <section className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-lg">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
               <User className="text-blue-600" />
               About Me
             </h3>
@@ -163,12 +179,12 @@ export default function Portfolio() {
 
         {/* Projects Section */}
         {activeSection === "projects" && (
-          <section className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <section ref={projectsRef} className="space-y-6">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
               <Briefcase className="text-blue-600" />
               Projects
             </h3>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid gap-6">
               {projects.map((project, index) => (
                 <div
                   key={index}
@@ -210,12 +226,12 @@ export default function Portfolio() {
 
         {/* Tech Stack Section */}
         {activeSection === "tech" && (
-          <section className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+          <section ref={techRef} className="space-y-6">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
               <Code className="text-blue-600" />
               Tech Stack
             </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid gap-6">
               {Object.entries(techStack).map(([category, technologies]) => (
                 <div
                   key={category}
@@ -243,8 +259,8 @@ export default function Portfolio() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16 shadow-sm">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+      <footer className="bg-white border-t border-gray-200 mt-12 md:mt-16 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-600">
               © 2026 Giriraj. Built with React & Tailwind CSS
