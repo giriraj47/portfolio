@@ -45,17 +45,39 @@ export default function Portfolio() {
     "Tools & Deployment": ["Git", "Vite", "Vercel", "npm", "VS Code"],
   };
 
+  // const scrollToSection = (section) => {
+  //   setActiveSection(section);
+  //   setTimeout(() => {
+  //     if (section === "projects" && projectsRef.current) {
+  //       projectsRef.current.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "start",
+  //       });
+  //     } else if (section === "tech" && techRef.current) {
+  //       techRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  //     }
+  //   }, 100);
+  // };
+
   const scrollToSection = (section) => {
     setActiveSection(section);
+
     setTimeout(() => {
-      if (section === "projects" && projectsRef.current) {
-        projectsRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      } else if (section === "tech" && techRef.current) {
-        techRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      let ref = null;
+
+      if (section === "projects") ref = projectsRef;
+      if (section === "tech") ref = techRef;
+
+      if (!ref?.current) return;
+
+      const navbarHeight = 90; // or compute dynamically
+      const elementTop =
+        ref.current.getBoundingClientRect().top + window.scrollY;
+
+      window.scrollTo({
+        top: elementTop - navbarHeight,
+        behavior: "smooth",
+      });
     }, 100);
   };
 
@@ -63,7 +85,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <nav className="max-w-6xl mx-auto px-4 md:px-6 py-4">
+        <nav className="max-w-6xl mx-auto px-4 md:px-6 py-4 scroll-margin-top: 80px">
           <div className="flex justify-between items-center">
             <h1 className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
               &lt;Giriraj Joshi /&gt;
