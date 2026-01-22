@@ -29,16 +29,24 @@ export default function Portfolio() {
       link: "https://the-wild-oasis-496c.vercel.app/",
       github: "https://github.com/giriraj47/the-wild-oasis",
     },
+    {
+      title: "The Wild Oasis Website",
+      description:
+        "The Wild Oasis is a modern cabin booking web application built using Next.js, Tailwind CSS, and Supabase. The project focuses on providing a clean user experience for browsing cabins, checking availability, and making reservations, while leveraging server-side rendering and modern React patterns.",
+      tech: [
+        "Next.js",
+        "React",
+        "Supabase",
+        "Tailwind CSS",
+        "Auth.js / NextAuth ",
+      ],
+      link: "https://the-wild-oasis-website-theta-one.vercel.app/",
+      github: "https://github.com/giriraj47/the-wild-oasis-website",
+    },
   ];
 
   const techStack = {
-    Frontend: [
-      "React",
-      "React Router",
-      "React Query",
-      "React Hook Form",
-      "JavaScript",
-    ],
+    Frontend: ["Next.js", "React", "React Router", "React Query", "JavaScript"],
     Styling: ["Styled Components", "Tailwind CSS", "CSS3"],
     "Backend & Database": ["Supabase", "Node.js", "REST APIs"],
     "Data Visualization": ["Recharts", "Chart.js"],
